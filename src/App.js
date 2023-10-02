@@ -10,13 +10,15 @@ import AuthenticationLayout from "./layouts/AuthenticationLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
 import AuthProvider from "./context/AuthContext";
 import PrivateRoute from "./utilities/PrivateRoute";
+import AddStudent from "./pages/Users/AddStudent";
+import ViewStudents from "./pages/Users/ViewStudents";
 
 
 
 function App() {
-  const routeItems = routesConfig.map(({ to, Component, isHeader }) => {
+  const routeItems = routesConfig.map(({ to, Component, isHeader,childrens }) => {
     if (!isHeader) {
-      return <Route path={to} element={<Component />} />;
+      return <Route key={to} path={to} element={<Component />} />;
     }
     return "";
   });
@@ -26,16 +28,22 @@ function App() {
     setIsActive(!isActive);
   };
 
+  const setSidebarOpen = (status) => {
+    setIsActive(status);
+  }
+
+
   return (
-    <SideBarContext.Provider value={{ isActive, toggle }}>
+    <SideBarContext.Provider value={{ isActive, toggle,setSidebarOpen }}>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<PrivateRoute/>}>
-          <Route path="/" element={<DashboardLayout />}>
-            {routeItems} 
-        </Route>
-          </Route>
-       
+          <Route path="/" element={<PrivateRoute><DashboardLayout/></PrivateRoute>}>
+              {routeItems}
+              <Route path="/add-students" element={<AddStudent/>}/>
+            <Route path="/view-students" element={<ViewStudents />} />
+            <Route path="/view-faculties" element={<ViewStudents />} />
+            <Route path="/add-faculty" element={<ViewStudents />} />
+          </Route>          
            <Route path="/login" element={<AuthenticationLayout/>}>
               <Route index element={<Login />} />
            </Route>

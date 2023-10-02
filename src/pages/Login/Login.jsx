@@ -3,7 +3,9 @@ import { redirect, useNavigate } from "react-router-dom";
 
 import "./Login.scss";
 import {
+  Box,
   Checkbox,
+  CircularProgress,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -22,33 +24,39 @@ import { useAuth } from "../../context/AuthContext";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [visibility, setVisibility] = useState(false);
   const historyref = useNavigate();
 
-  const { login,currentUser } = useAuth();
+  const { login, currentUser } = useAuth();
 
-
-  const handleBtnClick = async() => {
-
-    try {
-      await login(username, password)
-      console.log("successs")
-      historyref("/");
-    } catch {
-      console.log("failed to login")
+  const handleOnSubmit = async (e) => {
+    e.preventDefault()
+    setError("")
+    if (!username || !password) {
+      setError("All fields are requied!");
+    } else {
+      setLoading(true);
+      try {
+        await login(username, password);
+        historyref("/");
+      } catch (e) {
+        console.log(e);
+        if(e.message==="auth/internal-error") setError("Incorrect Password !")
+      
+      } finally {
+        setLoading(false);
+      }
     }
   };
+
   useEffect(() => {
-    console.log(currentUser)
     if (currentUser) {
-      historyref("/")
+      historyref("/");
     }
-
-  }, [])
-  
-
-
+  }, []);
 
   return (
     <div className="login-container">
@@ -70,8 +78,8 @@ function Login() {
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore,
             atque.
           </p>
-
-          <div className="form-control">
+          <form  className="form-control" onSubmit={handleOnSubmit}>
+         
             <FormControl
               className="input-field"
               sx={{ width: "100%", mb: 2 }}
@@ -82,7 +90,7 @@ function Login() {
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-username"
-                type="text"
+                type="email"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 endAdornment={
@@ -130,9 +138,24 @@ function Login() {
                 <a href="#">Account Recovery</a>
               </span>
             </div>
-
-            <button onClick={handleBtnClick}>Login</button>
-          </div>
+            {error ? (
+              <Box>
+                <p style={{ color: "red" }}>{error}</p>
+              </Box>
+            ) : (
+              ""
+            )}
+            {loading ? (
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <CircularProgress size={30} />
+              </Box>
+            ) : null}
+            <button disabled={loading}>
+              Login
+            </button>
+        
+          </form>
+          
         </div>
         <span className="footer-content">
           Loric <span style={{ color: "blue" }}>Softwares</span>| Copyright

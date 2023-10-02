@@ -1,5 +1,6 @@
-import React,{ useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { auth } from "../firebase";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 const AuthContext = React.createContext();
 
@@ -9,6 +10,7 @@ export function useAuth() {
 
 export default function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
 
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password);
@@ -16,17 +18,34 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      setLoading(false);
+      if (user) setCurrentUser(user);
+      else {
+        setCurrentUser(null);
+      }
     });
-    return unsubscribe;
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
   }, []);
 
   const value = {
-      currentUser,
-      login
+    currentUser,
+    login,
   };
 
   return (
-    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={value}>
+      {loading ? (
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        children
+      )}
+    </AuthContext.Provider>
   );
 }

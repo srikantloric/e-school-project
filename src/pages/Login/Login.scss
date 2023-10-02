@@ -60,6 +60,7 @@
   width: 100px;
   border-radius: 50%;
   border: 1px solid var(--bs-orange);
+  object-fit: cover;
 }
 .login-card {
   display: flex;
@@ -87,18 +88,20 @@
 
 .form-control > button {
   margin-top: 10px;
- 
   padding: 10px;
   border: none;
   border-radius: 10px;
   background-color: var(--bs-link-color);
   color: var(--bs-white);
-
   cursor: pointer;
   padding: 15px 0px;
 
   &:hover {
     background-color: var(--bs-link-hover-color);
+  }
+
+  &:disabled{
+    opacity: 0.5;
   }
 }
 

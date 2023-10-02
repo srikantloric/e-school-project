@@ -16,7 +16,8 @@ export const routesConfig =
             icon: IconDashboard,
             isCollapsable: false,
             isHeader: false,
-            Component:Dashboard
+            Component: Dashboard,
+          
         },
         {
             title: "Students",
@@ -27,17 +28,17 @@ export const routesConfig =
             Component: Students,
             childrens: [{
                 title: "Add Student",
-                to: "/Students/add-students",
+                to: "/add-students",
                
                 isCollapsable: false,
                 isHeader: false,
-                Component: AddStudent,
+                Component: <AddStudent/>,
             }, {
                 title: "View Student",
                 to: "/view-students",
                 isCollapsable: false,
                 isHeader: false,
-                Component: AddStudent,
+                Component: <AddStudent/>,
             }]
         },
         {
@@ -47,20 +48,7 @@ export const routesConfig =
             isCollapsable: false,
             isHeader: false,
             Component: Faculties,
-            childrens: [{
-                title: "Add Faculties",
-                to: "/Students/add-students",
-               
-                isCollapsable: false,
-                isHeader: false,
-                Component: AddStudent,
-            }, {
-                title: "View Faculties",
-                to: "/view-students",
-                isCollapsable: false,
-                isHeader: false,
-                Component: AddStudent,
-            }]
+      
         },
         {
             title: "Management",
@@ -72,7 +60,8 @@ export const routesConfig =
             icon: IconFingerprint,
             isCollapsable: false,
             isHeader: false,
-            Component:Attendance
+            Component: Attendance,
+          
         },
         {
             title: "Fee Payment",
@@ -80,7 +69,8 @@ export const routesConfig =
             icon: IconCoinRupee,
             isCollapsable: false,
             isHeader: false,
-            Component:Attendance
+            Component: Attendance,
+            
         },
         {
             title: "Fee Receipt",
@@ -88,7 +78,8 @@ export const routesConfig =
             icon: IconNotes,
             isCollapsable: false,
             isHeader: false,
-            Component:Attendance
+            Component: Attendance,
+ 
         },
         {
             title: "Notification",
@@ -100,7 +91,8 @@ export const routesConfig =
             icon: IconReceipt2,
             isCollapsable: false,
             isHeader: false,
-            Component:Attendance
+            Component: Attendance,
+           
         },
         {
             title: "Message",
@@ -108,7 +100,8 @@ export const routesConfig =
             icon: IconMail,
             isCollapsable: false,
             isHeader: false,
-            Component:Attendance
+            Component: Attendance,
+            
         },
         {
             title: "Message",
@@ -116,7 +109,8 @@ export const routesConfig =
             icon: IconMail,
             isCollapsable: false,
             isHeader: false,
-            Component:Attendance
+            Component: Attendance,
+    
         },
         {
             title: "Message",
@@ -124,7 +118,8 @@ export const routesConfig =
             icon: IconMail,
             isCollapsable: false,
             isHeader: false,
-            Component:Attendance
+            Component: Attendance,
+         
         },
         {
             title: "Message",
@@ -132,7 +127,8 @@ export const routesConfig =
             icon: IconMail,
             isCollapsable: false,
             isHeader: false,
-            Component:Attendance
+            Component: Attendance,
+          
         },
     ];
    

@@ -2,18 +2,32 @@ import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import LSPage from "../../components/Utils/LSPage";
 import PageContainer from "../../components/Utils/PageContainer";
+import Card from "../../components/Card/Card";
 function Faculties() {
   return (
     <>
-      
       <PageContainer>
         <Navbar />
         <LSPage>
-          Faculty Details
+          <div style={{ display: "flex",flexWrap:'wrap' }}>
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+          </div>
         </LSPage>
       </PageContainer>
-  </>
-    
+    </>
   );
 }
 
