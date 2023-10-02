@@ -32,6 +32,8 @@ function App() {
     setIsActive(status);
   }
 
+  
+
 
   return (
     <SideBarContext.Provider value={{ isActive, toggle,setSidebarOpen }}>
